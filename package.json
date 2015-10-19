@@ -1,0 +1,25 @@
+{
+  "name": "verdande",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kjartab/verdande.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kjartab/verdande/issues"
+  },
+  "homepage": "https://github.com/kjartab/verdande#readme",
+  "dependencies": {
+    "forever": "^0.15.1",
+    "gulp": "^3.9.0",
+    "gulp-jshint": "^1.11.2",
+    "gulp-watch": "^4.3.5"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "verdande",
+  "version": "0.0.0",
+  "homepage": "https://github.com/kjartab/verdande",
+  "authors": [
+    "Kjartan Bjørset <kjartanbjorset@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
