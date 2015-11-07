@@ -77,6 +77,7 @@ public class DeviceScanActivity extends ListActivity {
             return;
         }
 
+        startService(new Intent(this, NetworkService.class));
 
     }
 
@@ -144,6 +145,13 @@ public class DeviceScanActivity extends ListActivity {
         super.onPause();
         scanLeDevice(false);
         mLeDeviceListAdapter.clear();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        stopService(new Intent(this, NetworkService.class));
     }
 
     @Override
