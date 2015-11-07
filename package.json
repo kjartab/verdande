@@ -10,8 +10,11 @@
     "type": "git",
     "url": "git+https://github.com/kjartab/verdande.git"
   },
-  "author": "",
-  "license": "ISC",
+  "authors": [
+    "Kjartan Bjørset <kjartanbjorset@gmail.com>",
+    "Øyvind Andreas Eide <oaeide@gmail.com>"
+  ],
+  "license": "",
   "bugs": {
     "url": "https://github.com/kjartab/verdande/issues"
   },

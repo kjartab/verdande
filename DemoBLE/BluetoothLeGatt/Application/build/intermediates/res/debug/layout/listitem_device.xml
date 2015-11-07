@@ -25,4 +25,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12dp"/>
-</LinearLayout><!-- From: file:/C:/Users/kjabjo/AndroidStudioProjects/BluetoothLeGatt/Application/src/main/res/layout/listitem_device.xml -->
+    <TextView android:id="@+id/test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test"
+        android:textSize="12dp"/>
+</LinearLayout><!-- From: file:/D:/Projects/verdande/DemoBLE/BluetoothLeGatt/Application/src/main/res/layout/listitem_device.xml -->

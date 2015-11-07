@@ -1,14 +1,15 @@
 {
   "name": "verdande",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "https://github.com/kjartab/verdande",
   "authors": [
-    "Kjartan Bjørset <kjartanbjorset@gmail.com>"
+    "Kjartan Bjørset <kjartanbjorset@gmail.com>",
+    "Øyvind Andreas Eide <oaeide@gmail.com>"
   ],
   "description": "",
   "main": "",
   "moduleType": [],
-  "license": "MIT",
+  "license": "",
   "ignore": [
     "**/.*",
     "node_modules",

@@ -35,6 +35,13 @@ import android.widget.ExpandableListView;
 import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -107,11 +114,58 @@ public class DeviceControlActivity extends Activity {
             } else if (BluetoothLeService.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
                 // Show all the supported services and characteristics on the user interface.
                 displayGattServices(mBluetoothLeService.getSupportedGattServices());
-            } else if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
-                displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+            } else {
+                if (BluetoothLeService.ACTION_DATA_AVAILABLE.equals(action)) {
+                    displayData(intent.getStringExtra(BluetoothLeService.EXTRA_DATA));
+                    sendDataToServer();
+
+
+                }
             }
         }
     };
+
+    private void sendDataToServer() {
+        String urlString = "http://www.kartan.no/";
+        URL url = null;
+
+
+        try {
+            url = new URL(urlString);
+
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            try {
+                urlConnection.setDoOutput(true);
+                urlConnection.setChunkedStreamingMode(0);
+
+                OutputStream out = new BufferedOutputStream(urlConnection.getOutputStream());
+                writeStream(out);
+
+                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+                readStream(in);
+            }
+            finally {
+                urlConnection.disconnect();
+            }
+
+        } catch (Exception e) {
+
+        }
+
+    }
+
+    private void writeStream(OutputStream out) {
+
+    }
+
+    private void readStream(InputStream in) {
+        try {
+            Log.i(TAG, in.toString());
+        } catch (Exception e) {
+            Log.e(TAG, e.toString());
+        }
+
+    }
 
     // If a given GATT characteristic is selected, check for supported features.  This sample
     // demonstrates 'Read' and 'Notify' features.  See

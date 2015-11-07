@@ -2,11 +2,18 @@
 <items version="2" >
 
     <item
-        jar="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.2\jars\classes.jar"
+        jar="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.2\jars\classes.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="b017100da14f9c158c9f5f2f508333c224b24a7c">
-        <dex dex="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\classes-5234ef4df995c654b851ba9efbd1e16f79b2b0fa.jar" />
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\classes-c6f75129b84670c872f112a8f270ffc82d109569.jar" />
+    </item>
+    <item
+        jar="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\jars\libs\internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="962e8b12569c56dbdcf8367eb4eac8bb129cd18f">
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-5391ae9ba8d97c401edcd5b64dac3cf492f98511.jar" />
     </item>
     <item
         jar="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\jars\classes.jar"
@@ -37,11 +44,39 @@
         <dex dex="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-e56b958185e8e79d16520e716cd862e0c645e49d.jar" />
     </item>
     <item
-        jar="D:\Development_slow\Android development\Android SDK\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
+        jar="D:\android\sdk\extras\android\m2repository\com\android\support\support-annotations\21.0.2\support-annotations-21.0.2.jar"
         jumboMode="false"
         revision="22.0.1"
         sha1="99373741f99a0556ee293c41e8faa1ca3ae8a4e6">
-        <dex dex="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-b87822842ec2ff62467f328344a881932b210d74.jar" />
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\support-annotations-21.0.2-73cf82fc3c336981d423065e9896c51d00ecc246.jar" />
+    </item>
+    <item
+        jar="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\support-v4\21.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="d1bf02de1c56d942e7a9d093b8610ba1ef4128e3">
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\classes-3066435e2f1bffdab94905ec245022f173806364.jar" />
+    </item>
+    <item
+        jar="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="61965ae058916e6a57950dd61b0164dc866af19a">
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\classes-363eab674c4357a06320074232963c199d100bd2.jar" />
+    </item>
+    <item
+        jar="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\cardview-v7\21.0.2\jars\classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="b017100da14f9c158c9f5f2f508333c224b24a7c">
+        <dex dex="C:\Users\kjabjo\AndroidStudioProjects\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\classes-5234ef4df995c654b851ba9efbd1e16f79b2b0fa.jar" />
+    </item>
+    <item
+        jar="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\exploded-aar\com.android.support\support-v13\21.0.2\jars\libs\internal_impl-21.0.2.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="9346da9fb778af9e451211bbc3541daced174ba7">
+        <dex dex="D:\Projects\verdande\DemoBLE\BluetoothLeGatt\Application\build\intermediates\pre-dexed\debug\internal_impl-21.0.2-74e20a16485bdae326b537d21237ed03c415f3cc.jar" />
     </item>
 
 </items>
