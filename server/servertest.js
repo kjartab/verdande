@@ -5,7 +5,18 @@ const PORT=8099;
 
 //We need a function which handles requests and send response
 function handleRequest(request, response){
-    response.end('It Works!! Path Hit: ' + request.url);
+	if (request.method === 'POST') {
+		handlePost(request);
+
+	    response.end('Post');
+	} else {
+
+ 	   response.end('mhm..');
+	}
+}
+
+function handlePost(request) {
+	console.log(request.body);
 }
 
 //Create a server
