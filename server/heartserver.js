@@ -4,7 +4,7 @@ var http = require("http");
     process.title = 'overskya';
 
     var heartRate = 0;
-    var PORT = 8189;
+    var PORT = 8222;
 
 
     var clients = [];
@@ -14,9 +14,12 @@ var http = require("http");
     function handleRequest(request, response){
         if (request.method === 'POST') {
             handlePost(request,response);
-            response.end('Post');
+	console.log("post");
+	
+	            response.end('Post');
         } else {
-
+		fullBody = request.url;
+	console.log(request.url);
            response.end('mhm..');
         }
     }
@@ -61,7 +64,7 @@ var http = require("http");
 
     clients = []
 
-    var webSocketsServerPort = 8009;
+    var webSocketsServerPort = 8223;
     var webSocketServer = require('websocket').server;
     var http = require('http');
 
