@@ -1,0 +1,125 @@
+var socket = require("socket.io");
+var http = require("http");
+
+    process.title = 'overskya';
+
+    var heartRate = 0;
+    var PORT = 8192;
+
+
+    var clients = [];
+
+
+    //We need a function which handles requests and send response
+    function handleRequest(request, response){
+        if (request.method === 'POST') {
+            handlePost(request,response);
+            response.end('Post');
+        } else {
+
+           response.end('mhm..');
+        }
+    }
+
+    function handlePost(req, res) {
+                
+        var fullBody = '';
+        
+        req.on('data', function(chunk) {
+          fullBody += chunk.toString();
+        });
+
+        req.on('end', function() {
+            heartRate = fullBody;
+            updateData();
+            console.log(heartRate);
+            res.end();
+        });
+    }
+
+
+    function updateData() {
+
+        if (clients.length > 0) {
+            var json = JSON.stringify( { heartRate: heartRate} );
+            for (var i=0; i < clients.length; i++) {
+                clients[i].sendUTF(json);
+            }
+        }
+    }
+
+
+    //Create a server
+    var httpServer = http.createServer(handleRequest);
+
+    var wsServer = new webSocketServer({
+        httpServer: httpServer
+    });
+
+    var sockets = socket.listen(httpServer);
+
+    // // //Lets start our server
+    // httpServer.listen(PORT, function(){
+    //     //Callback triggered when server is successfully listening. Hurray!
+    //     console.log("Server listening on: http://localhost:%s", PORT);
+    // });
+
+    // sockets.on('connection')
+    sockets.on('request', function(request) {
+        console.log((new Date()) + ' Connection from origin ' + request.origin + '.');
+        var connection = request.accept(null, request.origin); 
+        var index = clients.push(connection) - 1;
+
+        console.log((new Date()) + ' Connection accepted.');
+
+
+            connection.sendUTF(JSON.stringify( { heartRate: heartRate} ));
+        // user disconnected
+        connection.on('close', function(connection) {
+                clients.splice(index, 1);
+        });
+
+    });
+
+
+    // clients = []
+
+    // var webSocketsServerPort = 8009;
+    // var webSocketServer = require('websocket').server;
+    // var http = require('http');
+
+    // /**
+    //  * HTTP server
+    //  */
+    // var httpServer = http.createServer(function(request, response) {
+        
+    // });
+
+    // httpServer.listen(webSocketsServerPort, function() {
+    //     console.log((new Date()) + " Server is listening on port " + webSocketsServerPort);
+    // });
+
+    // /**
+    //  * WebSocket server
+    //  */
+    // var wsServer = new webSocketServer({
+    //     httpServer: httpServer
+    // });
+
+
+    // wsServer.on('request', function(request) {
+    //     console.log((new Date()) + ' Connection from origin ' + request.origin + '.');
+    //     var connection = request.accept(null, request.origin); 
+    //     var index = clients.push(connection) - 1;
+
+    //     console.log((new Date()) + ' Connection accepted.');
+
+
+    //         connection.sendUTF(JSON.stringify( { heartRate: heartRate} ));
+    //     // user disconnected
+    //     connection.on('close', function(connection) {
+    //             clients.splice(index, 1);
+    //     });
+
+    // });
+
