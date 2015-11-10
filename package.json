@@ -23,6 +23,7 @@
     "forever": "^0.15.1",
     "gulp": "^3.9.0",
     "gulp-jshint": "^1.11.2",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^4.3.5",
+    "websocket": "^1.0.22"
   }
 }
