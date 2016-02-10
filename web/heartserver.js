@@ -1,7 +1,7 @@
 const net = require("net");
 var http = require("http");
 
-    process.title = 'overskya';
+    process.title = 'hserver';
 
     var heartRate = 0;
     var PORT = 8222;
@@ -14,9 +14,9 @@ var http = require("http");
     function handleRequest(request, response){
         if (request.method === 'POST') {
             handlePost(request,response);
-	console.log("post");
+	           console.log("post");
 	
-	            response.end('Post');
+            response.end('Post');
         } else {
 		fullBody = request.url;
 	console.log(request.url);
@@ -95,7 +95,7 @@ var http = require("http");
         console.log((new Date()) + ' Connection accepted.');
 
 
-            connection.sendUTF(JSON.stringify( { heartRate: heartRate} ));
+        connection.sendUTF(JSON.stringify( { heartRate: heartRate} ));
         // user disconnected
         connection.on('close', function(connection) {
                 clients.splice(index, 1);

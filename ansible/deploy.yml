@@ -1,0 +1,20 @@
+---
+- name: Install NGINX and deploy verdande
+  hosts: webservers
+  remote_user: ansible
+  tasks:
+    - name: copy nginx config file
+      sudo: yes
+      copy: src=files/nginx.conf dest=/etc/nginx/conf.d/apps/verdande
+    - name: install nginx
+      sudo: yes
+      apt: name=nginx update_cache=yes force=yes
+    - name: restart nginx
+      sudo: yes
+      service: name=nginx state=restarted
+    - git:
+        accept_hostkey: True
+        dest: /home/ansible/projects/verdande
+        force: yes
+        update: yes
+        repo: https://github.com/kjartab/verdande
