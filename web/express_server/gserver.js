@@ -3,7 +3,7 @@ var passport = require('passport');
 var config = require('./config');
 
 var GoogleStrategy = require('passport-google-oauth20').Strategy;
-
+var root = "../";
 var app = express();
 
 var clients = {}
@@ -51,7 +51,7 @@ app.get('/auth/google/callback',
     console.log(res.accessToken);
     console.log(res,req);
     res.set("TOKEN", "test");
-    res.redirect("/")
+    res.redirect("/");
     // res.set('TOKEN');
     // res.send("yes");
     // res.redirect("/profile?access_token=" + req.user.access_token);

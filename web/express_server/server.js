@@ -1,19 +1,32 @@
 var express = require('express');
-var passport = require('passport');
+var wsHandler = require('./websocketHandler');
+var user = require('./users');
+var config = require('./config');
+var auth = require('./auth');
+
+
+
 var app = express();
+var users = new Users(config);
+var auth = new Auth(config, app, users);
+var wsHandler = new websocketHandler(config, app, auth);
 
 app.get('/', function (req, res) {
+	if (!auth.validateRequest(req)) {
+
+	}
   res.send('Hello World!');
 });
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+app.get('/user/{id}', function (req, res) {
+	if (!auth.validateRequest(req)) {
+		
+	}
 });
 
-app.get('/login',
-  passport.authenticate('local'),
-  function(req, res) {
-    // If this function gets called, authentication was successful.
-    // `req.user` contains the authenticated user.
-    res.redirect('/users/' + req.user.username);
-  });
+
+
+app.get('/users', function (req, res) {
+	// return user information
+
+});

@@ -3,6 +3,7 @@ var passport = require('passport');
 var config = require('./config');
 
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 var app = express();
 

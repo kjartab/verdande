@@ -1,11 +1,12 @@
 
-var user = (function() {
+var user = (function(config) {
 
-	var users = {};
+
+	var pg	
+
 
 	function findOrCreate(email, accessToken) {
 
-		
 		
 	}
 
