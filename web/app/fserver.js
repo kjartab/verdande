@@ -14,14 +14,11 @@ app.use(express.static('public'));
 app.use(passport.initialize());
 
 passport.use(new FacebookStrategy({
-    clientID: FACEBOOK_APP_ID,
-    clientSecret: FACEBOOK_APP_SECRET,
+    clientID: config.auth.facebook.APP_ID,
+    clientSecret: config.auth.facebook.APP_SECRET,
     callbackURL: "http://localhost:3000/auth/facebook/callback"
   },
-  function(accessToken, refreshToken, profile, done) {
-
-  	
-  	
+  function(accessToken, refreshToken, profile, done) {  
   	done(null, {profile: profile, accessToken: accessToken });
   }
 ));

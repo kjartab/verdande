@@ -4,11 +4,20 @@
 		<title>Verdande</title>
 
 		<link rel="stylesheet" type="text/css" href="css/verdande.css">
+        <link rel="stylesheet" type="text/css" href="css/verdande-loader.css">
+        <link rel="stylesheet" type="text/css" href="css/colors1.css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 	</head>
 	
 
 	<body>
-		
+	<div class="container">
+
+        <div id="sidebar" ></div> 
+        <div id="content" class="color-complement-4"></div> 
+
+    </div>
+
 	<div class='triangles'>
 	  <div class='tri invert'></div>
 	  <div class='tri invert'></div>
@@ -21,7 +30,16 @@
 	  <div class='tri invert'></div>
 	</div>
 
-	<div id="sidebar"></div>	
+	<div id="sidebar" style="color: #cfcfcf; background-color: #29514B; font-weight:bold;">
+
+        <p>VERDANDE</p>
+        <p>about</p>
+        <p>join</p>
+        <p>-------</p>
+        
+        <div id="contributors"></div>
+
+    </div>	
 	<div id="map"></div>
 	<div id="cesium"></div>
 
@@ -35,9 +53,107 @@
 
 
 	<script>
-		
+    var url = 'http://localhost:3000/api';
+
+    $.ajax({
+        url: url
+    }).done(function(e) {
+        console.log(e);
+    });
 
 
+
+    function storeToken(token) {
+        localStorage.setItem('k_verdande_token', token);
+    }
+
+    function getToken() {
+        localStorage.getItem('k_verdande_token')
+    }
+
+    function getSettings() {
+        localStorage.getItem('')
+    }
+
+    var config= {}
+
+    var k = k || {};
+
+    k.config = config;
+
+    (function (ns) {
+        "use strict";    
+
+
+        window.WebSocket = window.WebSocket || window.MozWebSocket;
+
+        var serverAddress = "ws://localhost:3000/api/livedata/ws";
+        //var serverAddress = "ws://localhost:8000";
+
+        // open connection
+        var connection = new WebSocket(serverAddress);
+
+        connection.onopen = function () {
+
+            var token = getToken();
+            getSettings()
+            if (token) {
+                connection.send({'verande_token' : token });
+            }
+        };
+
+        connection.onerror = function (error) {
+            // just in there were some problems with conenction...
+            console.log("ERROR");
+        };
+
+        // most important part - incoming messages
+        connection.onmessage = function (message) {
+            // var json = JSON.parse(message.data);
+            
+            k = handleMessage(message);
+
+            // servers.addStatus(json.data.id, json.data);
+        };
+
+        function handleMessage(message) {
+            var data = parseMessage(message);
+            if (data) {
+                if (data.type === 'dataupdate') {
+                    if ($('.triangles').is(':visible')) {
+                        setTimeout(function(){
+                            $('.triangles').hide();
+                        }, 500);
+                    }
+                    $('#contributors').text(data.uservalue);
+                }
+            }
+        }
+
+        function parseMessage(message) {
+            console.log(message.data);
+            var data = null;
+            try {
+                data = JSON.parse(message.data);                
+            } catch (e) {
+
+            }
+            return data;
+        }
+
+        setInterval(function() {
+            var data = JSON.stringify({ "timestamp" : "client", "payload" : "yeah" });
+            connection.send(data);
+            if (connection.readyState !== 1) {
+                console.log('error');
+                console.log(connection);
+            }
+
+        }, 3000);
+
+
+        
+    })(k);
 
 
 	</script>

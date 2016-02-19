@@ -1,0 +1,94 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/bin/node',
+1 verbose cli   '/usr/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'momentjs',
+1 verbose cli   '--save' ]
+2 info using npm@1.4.29
+3 info using node@v0.10.42
+4 verbose node symlink /usr/bin/node
+5 warn deprecated This version of npm lacks support for important features,
+6 warn deprecated such as scoped packages, offered by the primary npm
+7 warn deprecated registry. Consider upgrading to at least npm@2, if not the
+8 warn deprecated latest stable version. To upgrade to npm@2, run:
+9 warn deprecated npm -g install npm@latest-2
+10 warn deprecated To upgrade to the latest stable version, run:
+11 warn deprecated npm -g install npm@latest
+12 warn deprecated (Depending on how Node.js was installed on your system, you
+13 warn deprecated may need to prefix the preceding commands with `sudo`, or if
+14 warn deprecated on Windows, run them from an Administrator prompt.)
+15 warn deprecated If you're running the version of npm bundled with
+16 warn deprecated Node.js 0.10 LTS, be aware that the next version of 0.10 LTS
+17 warn deprecated will be bundled with a version of npm@2, which has some small
+18 warn deprecated backwards-incompatible changes made to `npm run-script` and
+19 warn deprecated semver behavior.
+20 warn package.json verdande@1.0.0 No description
+21 warn package.json eyes@0.1.8 No repository field.
+22 warn package.json pause@0.0.1 No repository field.
+23 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+24 warn package.json uid2@0.0.3 No repository field.
+25 warn package.json util@0.10.3 util is also the name of a node core module.
+26 verbose readDependencies using package.json deps
+27 verbose cache add [ 'momentjs', null ]
+28 verbose cache add name=undefined spec="momentjs" args=["momentjs",null]
+29 verbose parsed url { protocol: null,
+29 verbose parsed url   slashes: null,
+29 verbose parsed url   auth: null,
+29 verbose parsed url   host: null,
+29 verbose parsed url   port: null,
+29 verbose parsed url   hostname: null,
+29 verbose parsed url   hash: null,
+29 verbose parsed url   search: null,
+29 verbose parsed url   query: null,
+29 verbose parsed url   pathname: 'momentjs',
+29 verbose parsed url   path: 'momentjs',
+29 verbose parsed url   href: 'momentjs' }
+30 silly lockFile 6617700a-momentjs momentjs
+31 verbose lock momentjs /home/kjartan/.npm/6617700a-momentjs.lock
+32 silly lockFile 6617700a-momentjs momentjs
+33 silly lockFile 6617700a-momentjs momentjs
+34 verbose addNamed [ 'momentjs', '' ]
+35 verbose addNamed [ null, '*' ]
+36 silly lockFile 04d76c48-momentjs momentjs@
+37 verbose lock momentjs@ /home/kjartan/.npm/04d76c48-momentjs.lock
+38 silly addNameRange { name: 'momentjs', range: '*', hasData: false }
+39 verbose request where is /momentjs
+40 verbose request registry https://registry.npmjs.org/
+41 verbose request id db35801842053061
+42 verbose url raw /momentjs
+43 verbose url resolving [ 'https://registry.npmjs.org/', './momentjs' ]
+44 verbose url resolved https://registry.npmjs.org/momentjs
+45 verbose request where is https://registry.npmjs.org/momentjs
+46 info trying registry request attempt 1 at 00:01:51
+47 http GET https://registry.npmjs.org/momentjs
+48 http 404 https://registry.npmjs.org/momentjs
+49 silly registry.get cb [ 404,
+49 silly registry.get   { 'content-type': 'application/json',
+49 silly registry.get     'cache-control': 'max-age=0',
+49 silly registry.get     'content-length': '2',
+49 silly registry.get     'accept-ranges': 'bytes',
+49 silly registry.get     date: 'Thu, 18 Feb 2016 23:01:52 GMT',
+49 silly registry.get     via: '1.1 varnish',
+49 silly registry.get     age: '0',
+49 silly registry.get     connection: 'keep-alive',
+49 silly registry.get     'x-served-by': 'cache-fra1248-FRA',
+49 silly registry.get     'x-cache': 'MISS',
+49 silly registry.get     'x-cache-hits': '0',
+49 silly registry.get     'x-timer': 'S1455836512.184223,VS0,VE106' } ]
+50 silly lockFile 04d76c48-momentjs momentjs@
+51 silly lockFile 04d76c48-momentjs momentjs@
+52 error 404 Not Found
+52 error 404
+52 error 404 'momentjs' is not in the npm registry.
+52 error 404 You should bug the author to publish it
+52 error 404 It was specified as a dependency of 'verdande'
+52 error 404
+52 error 404 Note that you can also install from a
+52 error 404 tarball, folder, or http url, or git url.
+53 error System Linux 3.19.0-49-generic
+54 error command "/usr/bin/node" "/usr/bin/npm" "install" "momentjs" "--save"
+55 error cwd /home/kjartan/projects/verdande
+56 error node -v v0.10.42
+57 error npm -v 1.4.29
+58 error code E404
+59 verbose exit [ 1, true ]

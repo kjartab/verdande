@@ -19,8 +19,8 @@ var token = function() {
 
 console.log(config);
 passport.use(new GoogleStrategy({
-    clientID: config.googleClientID,
-    clientSecret: config.googleClientSecret,
+        clientID: config.auth.google.clientID,
+        clientSecret: config.auth.google.clientSecret,
     callbackURL: "http://localhost:3000/auth/google/callback"
   },
   function(accessToken, refreshToken, profile, done) {
@@ -29,10 +29,9 @@ passport.use(new GoogleStrategy({
 
     // console.log(profile);
     // token(); // "bnh5yzdirjinqaorq0ox1tf383nb3xr"
-
+    
     done(null, {profile: profile, accessToken: accessToken });
-  }
-  ));
+  }));
 
 
 app.listen(3000, function () {
@@ -51,9 +50,9 @@ app.get('/auth/google/callback',
     console.log(res.accessToken);
     console.log(res,req);
     res.set("TOKEN", "test");
-    res.redirect("/");
+    // res.redirect("/");
     // res.set('TOKEN');
-    // res.send("yes");
+    res.send("yes");
     // res.redirect("/profile?access_token=" + req.user.access_token);
   });
 
