@@ -31,11 +31,12 @@ var generateToken = function() {
 var cache = {};
 var connections = {};
 
-function isLoggedIn(token) {
+function authorize(token) {
     
     if (cache.hasOwnProperty(token)) {
         return true;
     }
+
 }
 
 app.get('/api', function(req, res, next) {
@@ -64,7 +65,7 @@ app.get('/db', function (req, res) {
 });
 
 app.get('/error', function(req, res) {
-    res.send('uhoh')
+    res.send('uhoh');
 })
 
 
@@ -81,10 +82,13 @@ function parseMessage(message) {
     return data;
 }
 
-function handleClientsUpdate(data) {    
+function handleClientsUpdate(data, userId) {    
     var payload = getValidatedPayload(data);
     if (payload) {
-        user.storePayload(payload);
+
+        var update = user.storePayload(payload);
+        
+
         console.log("timestamped update");
     }
 }
@@ -104,6 +108,7 @@ function handleMessage(socketData, callback) {
     var data = parseMessage(socketData);
 
     if(data) {
+        console.log("data is here");
         switch(data.type) {
             case 'tokenResponse':
                 console.log("token response");
@@ -112,14 +117,14 @@ function handleMessage(socketData, callback) {
             break;
                 
             case 'clientUpdates':
-                if (isLoggedIn(data.verdande_token) {
-                    handleClientsUpdate(socketData.clientUpdate);
-                    
+                var authorizedUserId = user.authorize(data.verdande_token);
+                if (authorizedUserId) {
+                    handleClientsUpdate(data.clientUpdate, authorizedUserId);
                 } else {
                     callback({
                         error : {
                             code : 401,
-                            message : "Unauthorized. Present token"
+                            message : "Unauthorized"
                         }
                     });
                 }

@@ -1,9 +1,13 @@
 module.exports = function(config, db) {
 
+
+    var cache = {};
+
 	function findOrCreate(profile, accessToken, done) {
 
         function success(data) {
             console.log("SUCCESS!");
+            console.log(data.verdandeToken);
             done(null, data);
         }
 
@@ -31,7 +35,7 @@ module.exports = function(config, db) {
             name : "kjartan",
             email : "kjartanbjorset@gmail.com"
         };
-        success("test", {user : user, verdandeToken : "tokenv"})
+        success({user : user, verdandeToken : "tokenv"})
         // db.query("
         //     insert into verdande_user(id, name, email) values (---);
         //     insert into token_store(verdande_token, access_token, token_creation_time) values (---);
@@ -93,14 +97,27 @@ module.exports = function(config, db) {
             name : "kjartan",
             email : "kjartanbjorset@gmail.com"
         };
-        success(null, {user : user, verdandeToken : "tokenv"}); 
+        success({user : user, verdandeToken : "tokenv"}); 
     }
+
+
 
     function parseUserToken(row) {
         return null;
     }
 
+    function getUserByToken(token) {
+
+    }
+
+    function getUserById(id) {
+
+    }
+
     return {
+        authorize: authorize,
+        getUserById : getUser,
+        getUserByToken: getUserByToken,
         findOrCreate : findOrCreate
     }
 
