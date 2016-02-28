@@ -4,14 +4,12 @@ var moment = require('moment');
 var cors = require('cors');
 app.use(cors());
 
-// var server = require('http').createServer()
 var url = require('url')
 var WebSocketServer = require('ws').Server
-// var wss = new WebSocketServer({ server: server, path: "/api/ws" });
 var config = require('./config');
 var port = 3000;
 var server = app.listen(port);
-var wss = new WebSocketServer({ server: server, path: "/api/livedata/ws" });
+var wss = new WebSocketServer({ server: server, path: "/api/ws" });
 
 config.server = "localhost:"+port;
 var db = require('./db')(config);
@@ -47,7 +45,7 @@ app.get('/api', function(req, res, next) {
 
 
 app.get('/api/user/', function(req, res, next) {
-    res.send("users ");
+    res.send("users");
     res.end();
 });
 
@@ -61,13 +59,11 @@ app.get('/db', function (req, res) {
     db.query('SELECT * from v_user;', null, function(err, result) {
         res.send(result.rows);
     });
-
 });
 
 app.get('/error', function(req, res) {
     res.send('uhoh');
 })
-
 
 var clients= {};
 var wsClients = {};
@@ -84,11 +80,9 @@ function parseMessage(message) {
 
 function handleClientsUpdate(data, userId) {    
     var payload = getValidatedPayload(data);
+    console.log(data, payload);
     if (payload) {
-
         var update = user.storePayload(payload);
-        
-
         console.log("timestamped update");
     }
 }
@@ -116,18 +110,19 @@ function handleMessage(socketData, callback) {
 
             break;
                 
-            case 'clientUpdates':
-                var authorizedUserId = user.authorize(data.verdande_token);
-                if (authorizedUserId) {
-                    handleClientsUpdate(data.clientUpdate, authorizedUserId);
-                } else {
-                    callback({
-                        error : {
-                            code : 401,
-                            message : "Unauthorized"
-                        }
-                    });
-                }
+            case 'clientUpdate':
+
+                // var authorizedUserId = user.authorize(data.verdande_token);
+                // if (authorizedUserId) {
+                handleClientsUpdate(data.clientUpdate,1);
+                // } else {
+                //     callback({
+                //         error : {
+                //             code : 401,
+                //             message : "Unauthorized"
+                //         }
+                //     });
+                // }
                 
             break;
 
@@ -160,7 +155,7 @@ wss.broadcast = function broadcast(data) {
 };
 
 function getNewUserUpdates() {
-
+    
 }
 
 

@@ -6,8 +6,12 @@ module.exports = function(config, db) {
 	function findOrCreate(profile, accessToken, done) {
 
         function success(data) {
-            console.log("SUCCESS!");
-            console.log(data.verdandeToken);
+
+            console.log(data);
+            console.log(cache);
+            console.log()
+            console.log("SUCCESShandleNewUser!");
+            // console.log(data.verdandeToken);
             done(null, data);
         }
 
@@ -19,9 +23,17 @@ module.exports = function(config, db) {
             createUser(profile, accessToken, success, error);
         }
 
-        getExistingUser(profile, accessToken, success, error, handleNewUser);
+        if (cache.hasOwnProperty()) {
+            getExistingUser(profile, accessToken, success, error, handleNewUser);
+        } else {
+            handleNewUser(profile, accessToken);
+        }
     
 	}
+
+    function cacheHit(profile, verdandeToken) {
+
+    }
 
     function uuid() {
         return "testairjao";
@@ -35,39 +47,24 @@ module.exports = function(config, db) {
             name : "kjartan",
             email : "kjartanbjorset@gmail.com"
         };
-        success({user : user, verdandeToken : "tokenv"})
-        // db.query("
-        //     insert into verdande_user(id, name, email) values (---);
-        //     insert into token_store(verdande_token, access_token, token_creation_time) values (---);
-        //     "),
-        //     function(err, result) {
-        //         if (err) {
-        //             error(err);
-        //         } else {
-        //             success(null, result);
-        //         }
-        //     });
-    }
-    
+        db.query("\
+            INSERT INTO verdande_user(id, name, email) \
+            VALUES ('" + user.id + "' '" + user.name + "', '" + user.email + "'; ",
+            function(err, data) {
+                console.log(data);
+            });
 
-    function getLoggedInUser(verdandeToken, success, error) {
-
-        // db.query("
-        //     SELECT u.id, u.name, u.email, t.token, t.token_creation_time 
-        //     from verdande_user u
-        //     where verdande_token="+verdandeToken +";",
-        //     function (err, res) {
-        //         if (err) {
-        //             done(err);
-        //         } else {
-
-        //         }
-        //     });
+        success({user : user, verdandeToken : "tokenv"});
     }
 
     function logoutUser(verdandeToken) {
 
     }
+
+    function deleteUser(verdandeToken) {
+
+    }
+
 
     function storeUserUpdate(verdandeToken, persistent) {
         db.query('INSERT INTO ')
@@ -75,48 +72,82 @@ module.exports = function(config, db) {
 
     function getExistingUser(profile, accessToken, success, error, handleNewUser) {
 
-        // res = db.query("
-        //     select u.id, u.name, u.email, t.token, t.tokencreatetime 
-        //     from verdande_user u
-        //     left join tokenstore t on u.id=t.uid;",
-        //     function(err, result) {
-        //         if (result.rows.length == 0) {
-        //             handleNewUser(profile, accessToken);
-        //         } else if (result.rows.length > 0) {
-        //             var userToken = parseUserToken(result.rows[0]);
-        //             success(null, user);
-        //         } else {
-        //             error(err);
-        //         }
-        //     });
+        res = db.query("\
+            SELECT \
+                u.id, u.name, u.email, t.token, t.token_creation_time \
+            FROM \
+                verdande_user u \
+            LEFT JOIN \
+                verdande_token t \
+            ON u.id = t.uid \
+            ORDER BY t.token_creation_time DESC \
+            LIMIT 1; \
+            ",
+            function(err, result) {
+                if (result.rows.length === 0) {
+                    handleNewUser(profile, accessToken);
+                } else if (result.rows.length > 0) {
+                    res = result.rows[0];
+
+                    var userToken = parseUserToken(result.rows[0]);
+
+                    success({
+                        verdandeToken : "test",
+                        user: userToken 
+                        });
+
+                } else {
+                    if (err) {
+                        error(err);                        
+                    } else {
+                        error({
+                            statusCode : 401,
+                            statusMessage : "Unauthorized"
+                        });
+                    }
+                }
+            });
 
 
         var tokenCreationTime = "now";
+        
+        success({user : getMockUser(), verdandeToken : "tokenv"}); 
+    }
+
+    function getMockUser(token) {
         var user = {
             id : uuid(),
             name : "kjartan",
             email : "kjartanbjorset@gmail.com"
         };
-        success({user : user, verdandeToken : "tokenv"}); 
     }
 
-
-
     function parseUserToken(row) {
-        return null;
+        console.log(row);
+        return getMockUser();
     }
 
     function getUserByToken(token) {
-
+        var user = cacheHit(token);
+        if (user) {
+            return user;
+        } else {
+            
+        }
+        return getMockUser(token);
     }
 
     function getUserById(id) {
 
     }
 
+    function authorize(token) {
+        return getUserByToken(token);
+    }
+
     return {
         authorize: authorize,
-        getUserById : getUser,
+        getUserById : getUserById,
         getUserByToken: getUserByToken,
         findOrCreate : findOrCreate
     }

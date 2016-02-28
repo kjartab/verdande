@@ -6,6 +6,7 @@
 		<link rel="stylesheet" type="text/css" href="css/verdande.css">
         <link rel="stylesheet" type="text/css" href="css/verdande-loader.css">
         <link rel="stylesheet" type="text/css" href="css/colors1.css">
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.5/leaflet.css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
 	</head>
 	
@@ -13,7 +14,6 @@
 	<body>
 	<div class="container">
 
-        <div id="sidebar" ></div> 
         <div id="content" class="color-complement-4"></div> 
 
     </div>
@@ -61,7 +61,16 @@
         console.log(e);
     });
 
+    var map = L.map('map').setView([61.3999272955946,5.7503078840252], 14);
+            
 
+    L.tileLayer('https://www.webatlas.no/maptiles/tiles/webatlas-gray-vektor/wa_grid/{z}/{x}/{y}.png', {
+        maxZoom: 20,
+        zIndex: 0,
+        attribution: '<a target=_blank href="http://www.norkart.no">Norkart AS</a>'
+    }).addTo(map);
+
+    var marker = L.marker([50.505, 30.57]).addTo(map);
 
     function storeToken(token) {
         localStorage.setItem('k_verdande_token', token);
@@ -87,7 +96,7 @@
 
         window.WebSocket = window.WebSocket || window.MozWebSocket;
 
-        var serverAddress = "ws://localhost:3000/api/livedata/ws";
+        var serverAddress = "ws://localhost:3000/api/ws";
         //var serverAddress = "ws://localhost:8000";
 
         // open connection
@@ -100,6 +109,7 @@
             if (token) {
                 connection.send({'verande_token' : token });
             }
+            
         };
 
         connection.onerror = function (error) {
@@ -144,18 +154,62 @@
         setInterval(function() {
             var data = JSON.stringify({ "timestamp" : "client", "payload" : "yeah" });
             connection.send(data);
+            getLocation(function(data) {
+                // marker.setLocation()
+                var update = getClientUpdate(data);
+                var position = update.clientUpdate.position;
+                marker.setLatLng([ position.latitude, position.longitude]);
+                map.panTo(marker.getLatLng());
+                connection.send(JSON.stringify(update));
+            });
             if (connection.readyState !== 1) {
                 console.log('error');
                 console.log(connection);
             }
 
-        }, 3000);
+        }, 1000);
 
+        function getClientUpdate(geolocation) {
+            var data = {
+                verdandeToken : "test",
+                type: "clientUpdate",
+                clientUpdate : {
+                    position : getPosition(geolocation),
+                    timestamp : geolocation.timestamp
+                }
+            }
+            return data;
+        }
 
+        function getPosition(geolocation) {
+            var coords = geolocation.coords;
+            return {
+                latitude: coords.latitude,
+                longitude: coords.longitude,
+                altitude: coords.altitude,
+                accuracy: coords.accuracy,
+                speed: coords.speed,
+                heading: coords.heading,
+                altitudeAccuracy: coords.altitudeAccuracy
+
+            }
+        }
         
     })(k);
 
+    function getLocation(callback) {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(data) {
+                console.log(data);
+                callback(data);
+            });
+        } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+    // setTimeout(getLocation, 500);
 
+    // getLocation();
 	</script>
 
 

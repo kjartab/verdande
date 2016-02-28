@@ -10,7 +10,7 @@ module.exports = function(config){
     
     var conString = getConnectionString(config.postgresql);
         
-    function query(text, values, callback) {
+    function query(text, callback) {
        pg.connect(conString, function(err, client, done) {
             
             if(err) {

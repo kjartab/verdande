@@ -22,7 +22,7 @@ function setupStrategies(userCallback) {
         function(accessToken, refreshToken, profile, done) {
             userCallback(accessToken, profile, done);
         })
-    );   
+    );
 
     passport.use(new GoogleStrategy({
             clientID: config.auth.google.clientID,

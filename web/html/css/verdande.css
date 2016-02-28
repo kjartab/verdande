@@ -9,7 +9,11 @@ body, html {
     font-family: 'Open Sans', sans-serif;
 }
 
+#map {
 
+    width:600px;
+    height:400px;
+}
 
 .sidebar {
     width:250px;
